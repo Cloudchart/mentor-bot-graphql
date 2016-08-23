@@ -31,6 +31,7 @@ import {
 
 import {
   Add as AddCardToCourse,
+  Update as UpdateCard,
   Remove as RemoveCardFromCourse,
 } from './card'
 
@@ -54,6 +55,7 @@ export default new GraphQLObjectType({
     addScenarioToAuthor             : AddScenarioToAuthor,
 
     addCardToCourse                 : AddCardToCourse,
+    updateCard                      : UpdateCard,
     removeCardFromCourse            : RemoveCardFromCourse,
 
     createSurvey                    : CreateSurvey,
