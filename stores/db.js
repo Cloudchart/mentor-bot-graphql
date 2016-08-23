@@ -3,7 +3,7 @@ import r from 'rethinkdb'
 const connection = r.connect({
   host      : 'localhost',
   post      : '28015',
-  db        : 'courses',
+  db        : process.env.RETHINKDB_DATABASE,
   user      : 'admin',
   password  : ''
 })
