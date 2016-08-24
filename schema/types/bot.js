@@ -36,7 +36,7 @@ const Bot = new GraphQLObjectType({
     },
 
     token: {
-      type: new GraphQLNonNull(GraphQLString)
+      type: GraphQLString
     },
 
   })

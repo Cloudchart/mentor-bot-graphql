@@ -39,7 +39,7 @@ export default mutationWithClientMutationId({
     },
 
     botToken: {
-      type: new GraphQLNonNull(GraphQLString)
+      type: GraphQLString
     },
 
   }),
@@ -64,7 +64,7 @@ export default mutationWithClientMutationId({
       Bot.insert({
         name  : botName,
         type  : botType,
-        token : botToken,
+        token : botToken || null,
       })
     ).then(({ generated_keys }) => generated_keys[0])
 

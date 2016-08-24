@@ -34,7 +34,7 @@ export default mutationWithClientMutationId({
     },
 
     botToken: {
-      type: new GraphQLNonNull(GraphQLString)
+      type: GraphQLString
     },
 
   }),
@@ -53,7 +53,7 @@ export default mutationWithClientMutationId({
     await run(
       Bot.get(bot_id).update({
         name  : botName,
-        token : botToken,
+        token : botToken || null,
       })
     )
 
