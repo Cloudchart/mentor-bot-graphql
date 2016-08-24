@@ -1,4 +1,5 @@
 import {
+  offsetToCursor,
   connectionArgs,
   connectionFromArray,
   connectionDefinitions,
@@ -17,6 +18,18 @@ import {
 let Connection, ConnectionDefinitions
 
 
+const nodeToEdge = async({ author, bot }) => {
+  const offset = await run(
+    Author.get(author.id)('bots')('id').offsetsOf(bot.id)
+  ).then(cursor => cursor.next())
+
+  return {
+    node    : bot,
+    cursor  : offsetToCursor(offset)
+  }
+}
+
+
 const defineConnection = () => {
   ConnectionDefinitions = connectionDefinitions({
     name      : 'AuthorBots',
@@ -28,12 +41,20 @@ const defineConnection = () => {
 
     type: ConnectionDefinitions.connectionType,
 
+    nodeToEdge,
+
     args: {
       ...connectionArgs
     },
 
     resolve: async (author, args) => {
-      return connectionFromArray([], args)
+      const bots_ids = await run(
+        Author.get(author.id)('bots')('id').default([])
+      ).then(cursor => cursor.toArray())
+
+      const bots = await Bot.loadMany(bots_ids)
+
+      return connectionFromArray(bots, args)
     }
   }
 }

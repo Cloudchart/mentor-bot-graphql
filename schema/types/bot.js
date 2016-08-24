@@ -19,13 +19,17 @@ const BotType = new GraphQLEnumType({
 })
 
 
-export default new GraphQLObjectType({
+const Bot = new GraphQLObjectType({
 
   name: 'Bot',
 
   fields: () => ({
 
     id: globalIdField(),
+
+    name: {
+      type: new GraphQLNonNull(GraphQLString)
+    },
 
     type: {
       type: new GraphQLNonNull(BotType)
@@ -38,3 +42,8 @@ export default new GraphQLObjectType({
   })
 
 })
+
+
+Bot.Type = BotType
+
+export default Bot

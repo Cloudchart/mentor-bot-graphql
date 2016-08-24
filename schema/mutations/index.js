@@ -6,9 +6,6 @@ import {
   Create as CreateAuthor,
   Update as UpdateAuthor,
   Destroy as DestroyAuthor,
-  AddBot as AddBotToAuthor,
-  UpdateBot as UpdateAuthorBot,
-  RemoveBot as RemoveBotFromAuthor,
 
   AddCourse as AddCourseToAuthor,
   RemoveCourse as RemoveAuthorCourse,
@@ -35,6 +32,12 @@ import {
   Remove as RemoveCardFromCourse,
 } from './card'
 
+import {
+  AddBotToAuthor,
+  UpdateBot,
+  RemoveBotFromAuthor,
+} from './bots'
+
 
 export default new GraphQLObjectType({
 
@@ -45,9 +48,6 @@ export default new GraphQLObjectType({
     createAuthor                    : CreateAuthor,
     updateAuthor                    : UpdateAuthor,
     destroyAuthor                   : DestroyAuthor,
-    addBotToAuthor                  : AddBotToAuthor,
-    updateAuthorBot                 : UpdateAuthorBot,
-    removeBotFromAuthor             : RemoveBotFromAuthor,
 
     addCourseToAuthor               : AddCourseToAuthor,
     removeAuthorCourse              : RemoveAuthorCourse,
@@ -57,6 +57,10 @@ export default new GraphQLObjectType({
     addCardToCourse                 : AddCardToCourse,
     updateCard                      : UpdateCard,
     removeCardFromCourse            : RemoveCardFromCourse,
+
+    addBotToAuthor                  : AddBotToAuthor,
+    updateBot                       : UpdateBot,
+    removeBotFromAuthor             : RemoveBotFromAuthor,
 
     // createSurvey                    : CreateSurvey,
     // destroySurvey                   : DestroySurvey,
