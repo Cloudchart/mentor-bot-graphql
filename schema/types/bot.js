@@ -39,6 +39,11 @@ const Bot = new GraphQLObjectType({
       type: GraphQLString
     },
 
+    verifyToken: {
+      type: new GraphQLNonNull(GraphQLString),
+      resolve: ({ id }) => id
+    }
+
   })
 
 })
