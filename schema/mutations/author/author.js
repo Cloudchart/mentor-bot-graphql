@@ -35,7 +35,7 @@ export const Create = mutationWithClientMutationId({
 
   inputFields: () => ({
 
-    name: {
+    authorName: {
       type: new GraphQLNonNull(GraphQLString)
     }
 
@@ -58,10 +58,10 @@ export const Create = mutationWithClientMutationId({
 
   }),
 
-  mutateAndGetPayload: async ({ name }) => {
+  mutateAndGetPayload: async ({ authorName }) => {
     const author_id = await run(
       Author.insert({
-        name        : name,
+        name        : authorName,
         created_at  : new Date
       })
     ).then(({ generated_keys }) => generated_keys[0])
@@ -89,7 +89,7 @@ export const Update = mutationWithClientMutationId({
       type: new GraphQLNonNull(GraphQLID)
     },
 
-    name: {
+    authorName: {
       type: new GraphQLNonNull(GraphQLString)
     }
 
@@ -103,11 +103,14 @@ export const Update = mutationWithClientMutationId({
 
   }),
 
-  mutateAndGetPayload: async ({ authorID, name }) => {
+  mutateAndGetPayload: async ({ authorID, authorName }) => {
     const author_id = fromGlobalId(authorID).id
 
     await run(
-      Author.get(author_id).update({ name })
+      Author.get(author_id).update({
+        name        : authorName,
+        updated_at  : new Date
+      })
     )
 
     Author.clear(author_id)
