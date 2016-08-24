@@ -58,14 +58,14 @@ export default new GraphQLObjectType({
     updateCard                      : UpdateCard,
     removeCardFromCourse            : RemoveCardFromCourse,
 
-    createSurvey                    : CreateSurvey,
-    destroySurvey                   : DestroySurvey,
-    addQuestionToSurvey             : AddQuestionToSurvey,
-    removeQuestionFromSurvey        : RemoveQuestionFromSurvey,
-    reorderSurveyQuestions          : ReorderSurveyQuestions,
-    addAnswerToSurveyQuestion       : AddAnswerToSurveyQuestion,
-    removeAnswerFromSurveyQuestion  : RemoveAnswerFromSurveyQuestion,
-    reorderSurveyQuestionAnswers    : ReorderSurveyQuestionAnswers
+    // createSurvey                    : CreateSurvey,
+    // destroySurvey                   : DestroySurvey,
+    // addQuestionToSurvey             : AddQuestionToSurvey,
+    // removeQuestionFromSurvey        : RemoveQuestionFromSurvey,
+    // reorderSurveyQuestions          : ReorderSurveyQuestions,
+    // addAnswerToSurveyQuestion       : AddAnswerToSurveyQuestion,
+    // removeAnswerFromSurveyQuestion  : RemoveAnswerFromSurveyQuestion,
+    // reorderSurveyQuestionAnswers    : ReorderSurveyQuestionAnswers
   })
 
 })

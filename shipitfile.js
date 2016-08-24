@@ -23,12 +23,12 @@ module.exports = function(shipit) {
   })
 
 
-  shipit.blTask('foreman:start', function() {
-    return shipit.remote(`NODE_ENV=production /home/app/mentor-bot-graphql/shared/start`)
+  shipit.blTask('pm2:restart', function() {
+    return shipit.remote(`cd /home/app/mentor-bot-graphql/current && pm2 startOrRestart /home/app/mentor-bot-graphql/shared/ecosystem.json`)
   })
 
   shipit.on('cleaned', function() {
-    return shipit.start('foreman:start')
+    return shipit.start('pm2:restart')
   })
 
 }
