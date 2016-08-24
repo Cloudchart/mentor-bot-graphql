@@ -3,10 +3,12 @@ module.exports = function(shipit) {
   require('shipit-shared')(shipit)
   require('shipit-npm')(shipit)
 
+  const HOME = '/home/app/mentor-bot-graphql'
+
   shipit.initConfig({
     default: {
-      workspace     : '/tmp/mentor-graphql/workspace',
-      deployTo      : '/home/app/mentor-bot-graphql',
+      workspace     : '/tmp/mentor-bot-graphql/workspace',
+      deployTo      : HOME,
       ignores       : ['.git', 'node_modules'],
       repositoryUrl : 'git@github.com:Cloudchart/mentor-bot-graphql.git',
       shallowClone  : true,
@@ -24,7 +26,7 @@ module.exports = function(shipit) {
 
 
   shipit.blTask('pm2:restart', function() {
-    return shipit.remote(`cd /home/app/mentor-bot-graphql/current && pm2 startOrRestart /home/app/mentor-bot-graphql/shared/ecosystem.json`)
+    return shipit.remote(`cd ${HOME} && pm2 reload ${HOME}/shared/ecosystem.json`)
   })
 
   shipit.on('cleaned', function() {
