@@ -29,11 +29,11 @@ const findOrCreateAuthor = async ({ id, ...attributes }) => {
 }
 
 const ensureAuthor = async (headers) => {
-  const user_id = headers['user-id']
-  const access_token = headers['access-token']
+  const user_id       = headers['user-id']
+  const access_token  = headers['access-token']
+
   if (user_id && access_token) {
-    let profile = await facebook.profile(user_id, access_token).catch(console.error)
-    console.log(profile)
+    let profile = await facebook.profile(user_id, access_token)
     if (profile && profile.id === user_id)
       return findOrCreateAuthor(profile)
     else
@@ -45,8 +45,6 @@ const ensureAuthor = async (headers) => {
 
 
 app.use(app.get('path-prefix'), cors(), graphqlHTTP(async req => {
-
-  console.log(req.headers)
 
   return {
     schema    : MentorSchema,
