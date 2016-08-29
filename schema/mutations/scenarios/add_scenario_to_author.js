@@ -5,9 +5,12 @@ import {
 } from 'graphql'
 
 import {
-  fromGlobalID,
-  mutationWithClientMutationId,
+  fromGlobalId,
+  mutationWithClientMutationId
 } from 'graphql-relay'
+
+import Types from '../../types'
+import Connections from '../../connections'
 
 import {
   r,
@@ -16,14 +19,8 @@ import {
   Scenario,
 } from '../../../stores'
 
-import {
-  Scenarios
-} from '../../connections'
 
-import Types from '../../types'
-
-
-export const Add = mutationWithClientMutationId({
+export default mutationWithClientMutationId({
 
   name: 'AddScenarioToAuthor',
 
@@ -34,8 +31,8 @@ export const Add = mutationWithClientMutationId({
     },
 
     scenarioName: {
-      type: new GraphQLNonNull(GraphQLString)
-    }
+      type: new GraphQLNonNull(GraphQLString),
+    },
 
   }),
 
@@ -45,47 +42,36 @@ export const Add = mutationWithClientMutationId({
       type: new GraphQLNonNull(Types.Author)
     },
 
-    root: {
-      type: new GraphQLNonNull(Types.Root)
-    },
-
-    newAuthorScenarioEdge: {
-      type: new GraphQLNonNull(GraphQLString)
-    },
-
     newScenarioEdge: {
-      type: new GraphQLNonNull(Scenarios().edgeType),
-      resolve: Scenarios().nodeToEdge
-    },
+      type: new GraphQLNonNull(Connections.AuthorScenarios().edgeType),
+      resolve: Connections.AuthorScenarios().nodeToEdge
+    }
 
   }),
 
   mutateAndGetPayload: async ({ authorID, scenarioName }) => {
-    const author_id = fromGlobalID(authorID).id
+    const author_id = fromGlobalId(authorID).id
 
     const scenario_id = await run(
       Scenario.insert({
         name        : scenarioName,
         created_at  : new Date,
-        author      : { id: author_id }
+        updated_at  : new Date
       })
     ).then(({ generated_keys }) => generated_keys[0])
 
-    const scenario = await Scenario.load(scenario_id)
-
     await run(
       Author.get(author_id).update({
-        scenarios   : r.row('scenarios').default([]).append({ id: scenario_id }),
-        updated_at  : new Date
+        scenarios: r.row('scenarios').default([]).append({ id: scenario_id })
       })
     )
 
     Author.clear(author_id)
 
     const author = await Author.load(author_id)
+    const scenario = await Scenario.load(scenario_id)
 
     return {
-      root: {},
       author,
       scenario,
     }

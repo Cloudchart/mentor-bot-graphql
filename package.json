@@ -21,6 +21,8 @@
     "graphql": "^0.6.2",
     "graphql-relay": "^0.4.2",
     "json5": "^0.5.0",
+    "node-fetch": "^1.6.0",
+    "request": "^2.74.0",
     "rethinkdb": "^2.3.2"
   },
   "devDependencies": {

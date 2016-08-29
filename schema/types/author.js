@@ -13,6 +13,7 @@ import Interfaces from '../interfaces'
 import {
   AuthorBots,
   AuthorCourses,
+  AuthorScenarios,
 } from '../connections'
 
 
@@ -31,6 +32,8 @@ export default new GraphQLObjectType({
     bots: AuthorBots(),
 
     courses: AuthorCourses(),
+
+    scenarios: AuthorScenarios(),
 
   }),
 

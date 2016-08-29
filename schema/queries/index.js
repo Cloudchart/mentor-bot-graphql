@@ -1,6 +1,7 @@
 import {
   GraphQLID,
   GraphQLString,
+  GraphQLList,
   GraphQLNonNull,
   GraphQLObjectType,
 } from 'graphql'
@@ -35,12 +36,7 @@ export default new GraphQLObjectType({
 
     author: {
       type: new GraphQLNonNull(Types.Author),
-      args: {
-        id: {
-          type: new GraphQLNonNull(GraphQLID)
-        }
-      },
-      resolve: (root, { id }) => Author.load(fromGlobalId(id).id)
+      resolve: (root, args, { author }) => author
     }
 
   })

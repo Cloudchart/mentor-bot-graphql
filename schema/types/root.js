@@ -8,8 +8,6 @@ import {
 
 import {
   Authors,
-  Surveys,
-  Scenarios
 } from '../connections'
 
 
@@ -30,10 +28,6 @@ export default new GraphQLObjectType({
     },
 
     authors: Authors(),
-
-    surveys: Surveys(),
-
-    scenarios: Scenarios(),
 
   })
 

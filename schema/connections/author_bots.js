@@ -6,6 +6,7 @@ import {
 } from 'graphql-relay'
 
 import Types from '../types'
+import Interfaces from '../interfaces'
 
 import {
   r,
@@ -33,7 +34,7 @@ const nodeToEdge = async({ author, bot }) => {
 const defineConnection = () => {
   ConnectionDefinitions = connectionDefinitions({
     name      : 'AuthorBots',
-    nodeType  : Types.Bot
+    nodeType  : Interfaces.Bot
   })
 
   Connection = {

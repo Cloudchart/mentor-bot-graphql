@@ -1,3 +1,0 @@
-export {
-  Add
-} from './add'

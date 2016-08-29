@@ -1,6 +1,5 @@
 import {
   GraphQLString,
-  GraphQLList,
   GraphQLNonNull,
   GraphQLObjectType
 } from 'graphql'
@@ -11,33 +10,26 @@ import {
 
 import Interfaces from '../../interfaces'
 
-import Keyboard from './keyboard'
-
 
 export default new GraphQLObjectType({
 
-  name: 'MessageAction',
+  name: 'MessengerBot',
 
   fields: () => ({
 
     id: globalIdField(),
 
-    action: {
+    name: {
       type: new GraphQLNonNull(GraphQLString)
     },
 
-    label: {
-      type: GraphQLString
-    },
-
-    text: {
-      type: new GraphQLNonNull(GraphQLString)
-    },
-
-    keyboard: Keyboard
+    pageID: {
+      type: new GraphQLNonNull(GraphQLString),
+      resolve: ({ page_id }) => page_id
+    }
 
   }),
 
-  interfaces: [Interfaces.Node, Interfaces.Action],
+  interfaces: [Interfaces.Bot]
 
 })

@@ -11,10 +11,7 @@ export default new GraphQLSchema({
   name      : 'Mentor',
 
   types     : [
-    Types.MessageAction,
-    Types.InputAction,
-    Types.CourseChooserAction,
-    Types.CardListAction,
+    Types.MessengerBot,
   ],
 
   query     : Queries,

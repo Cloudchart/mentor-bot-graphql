@@ -12,31 +12,20 @@ import {
 } from './author'
 
 import {
-  Create as CreateSurvey,
-  Destroy as DestroySurvey,
-  AddQuestion as AddQuestionToSurvey,
-  RemoveQuestion as RemoveQuestionFromSurvey,
-  ReorderQuestions as ReorderSurveyQuestions,
-  AddAnswer as AddAnswerToSurveyQuestion,
-  RemoveAnswer as RemoveAnswerFromSurveyQuestion,
-  ReorderAnswers as ReorderSurveyQuestionAnswers,
-} from './survey'
-
-import {
-  Add as AddScenarioToAuthor
-} from './scenario'
-
-import {
   Add as AddCardToCourse,
   Update as UpdateCard,
   Remove as RemoveCardFromCourse,
 } from './card'
 
 import {
-  AddBotToAuthor,
-  UpdateBot,
+  AddTelegramBotToAuthor,
+  AddMessengerBotToAuthor,
   RemoveBotFromAuthor,
 } from './bots'
+
+import {
+  AddScenarioToAuthor
+} from './scenarios'
 
 
 export default new GraphQLObjectType({
@@ -52,24 +41,15 @@ export default new GraphQLObjectType({
     addCourseToAuthor               : AddCourseToAuthor,
     removeAuthorCourse              : RemoveAuthorCourse,
 
-    addScenarioToAuthor             : AddScenarioToAuthor,
-
     addCardToCourse                 : AddCardToCourse,
     updateCard                      : UpdateCard,
     removeCardFromCourse            : RemoveCardFromCourse,
 
-    addBotToAuthor                  : AddBotToAuthor,
-    updateBot                       : UpdateBot,
+    addTelegramBotToAuthor          : AddTelegramBotToAuthor,
+    addMessengerBotToAuthor         : AddMessengerBotToAuthor,
     removeBotFromAuthor             : RemoveBotFromAuthor,
 
-    // createSurvey                    : CreateSurvey,
-    // destroySurvey                   : DestroySurvey,
-    // addQuestionToSurvey             : AddQuestionToSurvey,
-    // removeQuestionFromSurvey        : RemoveQuestionFromSurvey,
-    // reorderSurveyQuestions          : ReorderSurveyQuestions,
-    // addAnswerToSurveyQuestion       : AddAnswerToSurveyQuestion,
-    // removeAnswerFromSurveyQuestion  : RemoveAnswerFromSurveyQuestion,
-    // reorderSurveyQuestionAnswers    : ReorderSurveyQuestionAnswers
+    addScenarioToAuthor             : AddScenarioToAuthor,
   })
 
 })

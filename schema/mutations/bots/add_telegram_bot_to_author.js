@@ -6,23 +6,25 @@ import {
 
 import {
   fromGlobalId,
-  mutationWithClientMutationId
+  mutationWithClientMutationId,
 } from 'graphql-relay'
 
 import Types from '../../types'
 import Connections from '../../connections'
 
+import telegram from '../../../telegram'
+
 import {
   r,
   run,
   Bot,
-  Author,
+  Author
 } from '../../../stores'
 
 
 export default mutationWithClientMutationId({
 
-  name: 'AddBotToAuthor',
+  name: 'AddTelegramBotToAuthor',
 
   inputFields: () => ({
 
@@ -30,21 +32,13 @@ export default mutationWithClientMutationId({
       type: new GraphQLNonNull(GraphQLID)
     },
 
-    botName: {
-      type: new GraphQLNonNull(GraphQLString),
-    },
-
-    botType: {
-      type: new GraphQLNonNull(Types.Bot.Type)
-    },
-
     botToken: {
-      type: GraphQLString
-    },
+      type: new GraphQLNonNull(GraphQLString)
+    }
 
   }),
 
-  outputFields: () => ({
+  outputFields: {
 
     author: {
       type: new GraphQLNonNull(Types.Author)
@@ -55,28 +49,42 @@ export default mutationWithClientMutationId({
       resolve: Connections.AuthorBots().nodeToEdge
     }
 
-  }),
+  },
 
-  mutateAndGetPayload: async ({ authorID, botName, botType, botToken }) => {
+  mutateAndGetPayload: async ({ authorID, botToken }, { author }) => {
     const author_id = fromGlobalId(authorID).id
 
+    // if (author.id !== author_id)
+    //   return new Error('Not authorized.')
+
+    // Fetch bot information
+    let { id, first_name } = await telegram.getMe(botToken).catch(error => { throw error })
+
+    // Set bot webhook
+    // await telegram.setWebhooks(botToken, process.env.TELEGRAM_WEBHOOK_URL)
+
+    // Create new bot
     const bot_id = await run(
       Bot.insert({
-        name  : botName,
-        type  : botType,
-        token : botToken || null,
-      })
-    ).then(({ generated_keys }) => generated_keys[0])
-
-    await run(
-      Author.get(author_id).update({
-        bots: r.row('bots').default([]).append({ id: bot_id })
+        bot_id      : id,
+        name        : first_name,
+        created_at  : new Date,
+        updated_at  : new Date,
       })
     )
 
+    // Add bot to author
+    await run (
+      Author.get(author_id).update({
+        bots        : r.row('bots').default([]).append({ id: bot_id }),
+        updated_at  : new Date
+      })
+    )
+
+
     Author.clear(author_id)
 
-    const author = await Author.load(author_id)
+    author = await Author.load(author_id)
     const bot = await Bot.load(bot_id)
 
     return {
