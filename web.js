@@ -28,8 +28,9 @@ const findOrCreateAuthor = async ({ id, ...attributes }) => {
   return author
 }
 
-const ensureAuthor = async ({ user_id, access_token }) => {
-  console.log(user_id, access_token)
+const ensureAuthor = async (headers) => {
+  const user_id = headers['user-id']
+  const access_token = headers['access-token']
   if (user_id && access_token) {
     let profile = await facebook.profile(user_id, access_token).catch(console.error)
     console.log(profile)
