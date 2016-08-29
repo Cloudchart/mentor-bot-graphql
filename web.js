@@ -45,6 +45,8 @@ const ensureAuthor = async ({ user_id, access_token }) => {
 
 app.use(app.get('path-prefix'), cors(), graphqlHTTP(async req => {
 
+  console.log(req.headers)
+
   return {
     schema    : MentorSchema,
     graphiql  : true,
